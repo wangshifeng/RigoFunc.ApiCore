@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace RigoFunc.ApiCore.Services {
     /// <summary>
@@ -16,8 +17,8 @@ namespace RigoFunc.ApiCore.Services {
         /// Initializes a new instance of the <see cref="MessageSender"/> class.
         /// </summary>
         /// <param name="options">The options.</param>
-        public MessageSender(ServiceOptions options) {
-            _options = options;
+        public MessageSender(IOptions<ServiceOptions> options) {
+            _options = options.Value;
         }
 
         /// <summary>
