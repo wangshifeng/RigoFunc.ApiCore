@@ -9,7 +9,7 @@
       "type": "git",
       "url": "https://github.com/xyting/RigoFunc.ApiCore.git"
     },
-    "tags": [ "OAuth", "Api", "ApiCore" ]
+    "tags": [ "Filter", "Api", "ApiCore" ]
   },
   "buildOptions": {
     "optimize": true,
