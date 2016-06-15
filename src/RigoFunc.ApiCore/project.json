@@ -1,0 +1,35 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "RigoFunc's Api infrastructure library can be used for Asp.Net Core.",
+  "authors": [ "RigoFunc" ],
+  "packOptions": {
+    "projectUrl": "https://github.com/xyting/RigoFunc.ApiCore",
+    "licenseUrl": "",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/xyting/RigoFunc.ApiCore.git"
+    },
+    "tags": [ "OAuth", "Api", "ApiCore" ]
+  },
+  "buildOptions": {
+    "optimize": true,
+    "xmlDoc": true
+  },
+  "dependencies": {
+    "NETStandard.Library": "1.5.0-rc2-24027",
+    "Microsoft.AspNetCore.Mvc.Core": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Mvc.Formatters.Json": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Authorization": "1.0.0-rc2-final",
+    "IdentityServer4.AccessTokenValidation": "1.0.0-beta6",
+    "Newtonsoft.Json": "9.0.1-beta1",
+    "IdentityModel": "2.0.0-beta3",
+    "RigoFunc.Http": "1.0.0",
+    "RigoFunc.XDoc": "1.0.1"
+  },
+
+  "frameworks": {
+    "netstandard1.5": {
+      "imports": "dnxcore50"
+    }
+  }
+}
