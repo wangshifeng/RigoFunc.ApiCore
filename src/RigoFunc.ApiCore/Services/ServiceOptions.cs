@@ -9,12 +9,12 @@ namespace RigoFunc.ApiCore.Services {
         /// Gets or sets the name of the product.
         /// </summary>
         /// <value>The name of the product.</value>
-        public string ProductName { get; set; } = "RigoFunc";
+        public string ProductName { get; set; }
         /// <summary>
         /// Gets or sets the product value.
         /// </summary>
         /// <value>The product value.</value>
-        public string ProductValue { get; set; } = "RigoFunc";
+        public string ProductValue { get; set; }
         /// <summary>
         /// Gets or sets the Sms API URL.
         /// </summary>

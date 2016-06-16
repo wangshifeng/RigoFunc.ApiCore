@@ -36,6 +36,16 @@ namespace RigoFunc.ApiCore.Services {
         /// <summary>
         /// Sends the Sms message asynchronous.
         /// </summary>
+        /// <param name="phoneNumber">The phone number.</param>
+        /// <param name="message">The message.</param>
+        /// <returns>A <see cref="Task{TResult}"/> represents the send operation.</returns>
+        public virtual Task<SendSmsResult> SendSmsAsnyc(string phoneNumber, string message) {
+            return Task.FromResult(SendSmsResult.Failed("Send Sms not implementation"));
+        }
+
+        /// <summary>
+        /// Sends the Sms message asynchronous.
+        /// </summary>
         /// <param name="template">The template.</param>
         /// <param name="phoneNumber">The phone number.</param>
         /// <param name="parameters">The parameters.</param>
