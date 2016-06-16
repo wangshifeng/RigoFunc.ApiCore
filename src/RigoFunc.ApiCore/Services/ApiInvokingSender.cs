@@ -87,7 +87,7 @@ namespace RigoFunc.ApiCore.Services {
                 parameters[item.Item1] = item.Item2;
             }
 
-            if (!parameters.ContainsKey(options.ProductName)) {
+            if (!string.IsNullOrWhiteSpace(options.ProductName) && !parameters.ContainsKey(options.ProductName)) {
                 parameters[options.ProductName] = options.ProductValue;
             }
 
