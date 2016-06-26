@@ -21,7 +21,8 @@
     "Microsoft.AspNetCore.Mvc.Formatters.Json": "1.0.0-rc2-final",
     "Newtonsoft.Json": "9.0.1-beta1",
     "RigoFunc.Http": "1.0.0",
-    "RigoFunc.XDoc": "1.0.1"
+    "RigoFunc.XDoc": "1.0.1",
+    "RigoFunc.OAuth": "1.0.3"
   },
 
   "frameworks": {
