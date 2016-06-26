@@ -1,6 +1,6 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "RigoFunc's Api core infrastructure library can be used for Asp.Net Core Api.",
+  "description": "Api core infrastructure library can be used for Asp.Net Core Api.",
   "authors": [ "RigoFunc" ],
   "packOptions": {
     "projectUrl": "https://github.com/xyting/RigoFunc.ApiCore",
