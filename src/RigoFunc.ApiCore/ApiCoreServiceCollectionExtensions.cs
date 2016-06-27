@@ -21,10 +21,6 @@ namespace Microsoft.Extensions.DependencyInjection {
             }
 
             var builder = services.AddMvcCore().AddMvcOptions(options => {
-                var policy = new AuthorizationPolicyBuilder()
-                     .RequireAuthenticatedUser()
-                     .Build();
-                options.Filters.Add(new AuthorizeFilter(policy));
                 options.Filters.Add(new ApiResultFilterAttribute());
                 options.Filters.Add(new ApiExceptionFilterAttribute());
             });
@@ -43,7 +39,22 @@ namespace Microsoft.Extensions.DependencyInjection {
         /// <param name="setupAction">An <see cref="Action{OAuthOptions}"/> to configure the provided <see cref="OAuthOptions"/>.</param>
         /// <returns>An <see cref="IMvcCoreBuilder"/> that can be used to further configure the MVC services.</returns>
         public static IMvcCoreBuilder AddCoreWithOAuth(this IServiceCollection services, Action<OAuthOptions> setupAction) {
-            var builder = services.AddCore();
+            if (services == null) {
+                throw new ArgumentNullException(nameof(services));
+            }
+
+            var builder = services.AddMvcCore().AddMvcOptions(options => {
+                var policy = new AuthorizationPolicyBuilder()
+                     .RequireAuthenticatedUser()
+                     .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+                options.Filters.Add(new ApiResultFilterAttribute());
+                options.Filters.Add(new ApiExceptionFilterAttribute());
+            });
+
+            builder.AddJsonFormatters(options => {
+                options.ContractResolver = new DefaultContractResolver();
+            });
 
             services.AddAuthorization();
 
