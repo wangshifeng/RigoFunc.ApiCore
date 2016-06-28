@@ -20,9 +20,9 @@
     "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
     "Microsoft.AspNetCore.Mvc.Formatters.Json": "1.0.0",
     "Newtonsoft.Json": "9.0.1",
-    "RigoFunc.Http": "1.0.0",
-    "RigoFunc.XDoc": "1.0.1",
-    "RigoFunc.OAuth": "1.0.3"
+    "RigoFunc.Http": "1.0.1",
+    "RigoFunc.XDoc": "1.0.2",
+    "RigoFunc.OAuth": "1.0.4"
   },
 
   "frameworks": {
