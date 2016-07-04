@@ -50,6 +50,8 @@ namespace RigoFunc.ApiCore.Filters {
 
                 // Json result.
                 context.Result = new JsonResult(json);
+
+                context.ExceptionHandled = true;
             }
             catch {
                 base.OnException(context);
@@ -69,6 +71,8 @@ namespace RigoFunc.ApiCore.Filters {
             }
 
             context.Result = new JsonResult(apiResult);
+
+            context.ExceptionHandled = true;
 
             return true;
         }
