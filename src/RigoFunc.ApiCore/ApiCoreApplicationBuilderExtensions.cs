@@ -9,9 +9,9 @@
         /// <param name="app">The <see cref="IApplicationBuilder"/>.</param>
         /// <returns>A reference to this instance after the operation has completed.</returns>
         public static IApplicationBuilder UseCoreWithOAuth(this IApplicationBuilder app) {
-            app.UseMvc();
-
             app.UseOAuth();
+
+            app.UseMvc();
 
             return app;
         }
