@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Claims;
+using IdentityModel.AspNetCore.OAuth2Introspection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -81,5 +82,17 @@ namespace RigoFunc.ApiCore {
         /// Gets the <see cref="OAuthUser"/>.
         /// </summary>
         public OAuthUser OAuthUser => OAuthUser.FromUser(User);
+
+        /// <summary>
+        /// Gets the access token.
+        /// </summary>
+        /// <value>The access token.</value>
+        public string AccessToken => TokenRetriever(Request);
+
+        /// <summary>
+        /// Gets the token retriever.
+        /// </summary>
+        /// <value>The token retriever.</value>
+        protected virtual Func<HttpRequest, string> TokenRetriever => TokenRetrieval.FromAuthorizationHeader();
     }
 }
