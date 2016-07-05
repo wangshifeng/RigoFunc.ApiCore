@@ -56,7 +56,7 @@ namespace Microsoft.Extensions.DependencyInjection {
                 options.ContractResolver = new DefaultContractResolver();
             });
 
-            services.AddAuthorization();
+            builder.AddAuthorization();
 
             if (setupAction != null) {
                 services.Configure(setupAction);
