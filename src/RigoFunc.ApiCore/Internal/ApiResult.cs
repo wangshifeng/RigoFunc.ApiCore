@@ -8,14 +8,14 @@ namespace RigoFunc.ApiCore.Internal {
 
         public string Message { get; set; }
 
-        public JObject Debug { get; set; }
+        public string Debug { get; set; }
 
         public static ApiResult NotFound(string message = null) => new ApiResult {
             Code = 404,
             Message = message ?? "NOT FOUND"
         };
 
-        public static ApiResult BadRequest(string message, JObject debug = null) => new ApiResult {
+        public static ApiResult BadRequest(string message, string debug = null) => new ApiResult {
             Code = 400,
             Message = message,
             Debug = debug
