@@ -1,28 +1,36 @@
 ﻿// Copyright (c) RigoFunc (xuyingting). All rights reserved.
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RigoFunc.ApiCore.Services {
     /// <summary>
-    /// Represents the message push target.
+    /// Represents a App push target.
     /// </summary>
     public class Target {
         /// <summary>
-        /// Gets or sets the alias.
+        /// Gets or sets the client Id.
         /// </summary>
-        /// <value>The alias.</value>
-        public string Alias { get; set; }
-        /// <summary>
-        /// Gets or sets the application identifier.
-        /// </summary>
-        /// <value>The application identifier.</value>
-        public string AppId { get; set; }
-        /// <summary>
-        /// Gets or sets the client identifier.
-        /// </summary>
-        /// <value>The client identifier.</value>
+        /// <value>The client Id.</value>
         public string ClientId { get; set; }
+        /// <summary>
+        /// Gets or sets the alias which binding to client Id.
+        /// </summary>
+        /// <value>The alias binding to client Id.</value>
+        /// <remarks>
+        /// In some case, we cann't or not easy to get the client Id, but the client Id had bind an alias to it.
+        /// </remarks>
+        public string Alias { get; set; }
+
+        /// <summary>
+        /// Create a new instance by the alias.
+        /// </summary>
+        /// <param name="alias">The alias.</param>
+        /// <returns>A new instance of <see cref="Target"/>.</returns>
+        public static Target FromAlias(string alias) {
+            return new Target {
+                Alias = alias
+            };
+        }
     }
 
     /// <summary>
@@ -30,29 +38,22 @@ namespace RigoFunc.ApiCore.Services {
     /// </summary>
     public interface IAppPush {
         /// <summary>
-        /// Pushes the message to single client asynchronous.
-        /// </summary>
-        /// <typeparam name="T">The type of the message</typeparam>
-        /// <param name="message">The message.</param>
-        /// <param name="target">The target.</param>
-        /// <returns>A <see cref="Task"/> represents the push operation.</returns>
-        Task PushMessageToSingleAsync<T>(T message, Target target);
-
-        /// <summary>
         /// Pushes the message to list clients asynchronous.
         /// </summary>
-        /// <typeparam name="T">The type of the message</typeparam>
+        /// <typeparam name="TMessage">The type of the message</typeparam>
+        /// <param name="appId">The App identifier.</param>
         /// <param name="message">The message.</param>
-        /// <param name="targets">The targets.</param>
+        /// <param name="tagets">The target clients that message will be push to.</param>
         /// <returns>A <see cref="Task"/> represents the push operation.</returns>
-        Task PushMessageToListAsync<T>(T message, IList<Target> targets);
+        Task PushMessageToListAsync<TMessage>(string appId, TMessage message, params Target[] tagets) where TMessage : class;
 
         /// <summary>
         /// Pushes the message to application asynchronous.
         /// </summary>
-        /// <typeparam name="T">The type of the message</typeparam>
+        /// <typeparam name="TMessage">The type of the message</typeparam>
+        /// <param name="appId">The App identifier.</param>
         /// <param name="message">The message.</param>
         /// <returns>A <see cref="Task"/> represents the push operation.</returns>
-        Task PushMessageToAppAsync<T>(T message);
+        Task PushMessageToAppAsync<TMessage>(string appId, TMessage message) where TMessage : class;
     }
 }

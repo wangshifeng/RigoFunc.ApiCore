@@ -1,6 +1,7 @@
 ﻿// Copyright (c) RigoFunc (xuyingting). All rights reserved.
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -24,30 +25,24 @@ namespace RigoFunc.ApiCore.Services {
         }
 
         /// <summary>
-        /// Pushes the message to application asynchronous.
+        /// Initializes a new instance of the <see cref="InvokeApiSender" /> class.
         /// </summary>
-        /// <typeparam name="T">The type of the message</typeparam>
-        /// <param name="message">The message.</param>
-        /// <returns>A <see cref="Task" /> represents the push operation.</returns>
-        public async virtual Task PushMessageToAppAsync<T>(T message) {
-            using (var http = new HttpClient()) {
-                var response = await http.PostAsync(_options.AppPushApiUrl, GetHttpContent(message, new Target[] { }));
-                if (!response.IsSuccessStatusCode) {
-                    throw new HttpRequestException(await response.Content.ReadAsStringAsync());
-                }
-            }
+        /// <param name="options">The options.</param>
+        public InvokeApiSender(InvokeApiOptions options) {
+            _options = options;
         }
 
         /// <summary>
         /// Pushes the message to list clients asynchronous.
         /// </summary>
-        /// <typeparam name="T">The type of the message</typeparam>
+        /// <typeparam name="TMessage">The type of the message</typeparam>
+        /// <param name="appId">The App identifier.</param>
         /// <param name="message">The message.</param>
-        /// <param name="targets">The targets.</param>
-        /// <returns>A <see cref="Task" /> represents the push operation.</returns>
-        public async virtual Task PushMessageToListAsync<T>(T message, IList<Target> targets) {
+        /// <param name="targets">The target clients that message will be push to.</param>
+        /// <returns>A <see cref="Task"/> represents the push operation.</returns>
+        public async Task PushMessageToListAsync<TMessage>(string appId, TMessage message, params Target[] targets) where TMessage : class {
             using (var http = new HttpClient()) {
-                var response = await http.PostAsync(_options.AppPushApiUrl, GetHttpContent(message, targets));
+                var response = await http.PostAsync(_options.AppPushApiUrl, GetHttpContent(appId, message, targets));
                 if (!response.IsSuccessStatusCode) {
                     throw new HttpRequestException(await response.Content.ReadAsStringAsync());
                 }
@@ -55,32 +50,43 @@ namespace RigoFunc.ApiCore.Services {
         }
 
         /// <summary>
-        /// Pushes the message to single client asynchronous.
+        /// Pushes the message to application asynchronous.
         /// </summary>
-        /// <typeparam name="T">The type of the message</typeparam>
+        /// <typeparam name="TMessage">The type of the message</typeparam>
+        /// <param name="appId">The App identifier.</param>
         /// <param name="message">The message.</param>
-        /// <param name="target">The target.</param>
-        /// <returns>A <see cref="Task" /> represents the push operation.</returns>
-        public async virtual Task PushMessageToSingleAsync<T>(T message, Target target) {
+        /// <returns>A <see cref="Task"/> represents the push operation.</returns>
+        public async Task PushMessageToAppAsync<TMessage>(string appId, TMessage message) where TMessage : class {
             using (var http = new HttpClient()) {
-                var response = await http.PostAsync(_options.AppPushApiUrl, GetHttpContent(message, new[] { target }));
+                var response = await http.PostAsync(_options.AppPushApiUrl, GetHttpContent(appId, message));
                 if (!response.IsSuccessStatusCode) {
                     throw new HttpRequestException(await response.Content.ReadAsStringAsync());
                 }
             }
         }
+        
+        private HttpContent GetHttpContent<TMessage>(string appId, TMessage message, params Target[] targets) where TMessage : class {
+            if(targets.Length != 0 && targets.Any(t => string.IsNullOrEmpty(t.ClientId) && string.IsNullOrEmpty(t.Alias))){
+                throw new ArgumentException(nameof(targets));
+            }
 
-        private HttpContent GetHttpContent<T>(T message, IList<Target> targets) {
             using (var memory = new MemoryStream()) {
                 using (var writer = new BinaryWriter(memory)) {
-                    var json = JsonConvert.SerializeObject(message);
-                    writer.Write(json);
-                    var count = targets.Count;
-                    writer.Write(count);
+                    writer.Write(appId);
+
+                    if(typeof(TMessage) == typeof(string)) {
+                        writer.Write(message.ToString());
+                    }
+                    else {
+                        var json = JsonConvert.SerializeObject(message);
+                        writer.Write(json);
+                    }
+
+                    var length = targets.Length;
+                    writer.Write(length);
                     foreach (var target in targets) {
-                        writer.Write(target.Alias ?? string.Empty);
-                        writer.Write(target.AppId ?? string.Empty);
-                        writer.Write(target.ClientId ?? string.Empty);
+                        writer.Write(target.ClientId ?? "");
+                        writer.Write(target.Alias ?? "");
                     }
                 }
                 return new ByteArrayContent(memory.ToArray());
