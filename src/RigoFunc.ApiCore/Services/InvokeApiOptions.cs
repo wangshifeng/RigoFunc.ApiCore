@@ -4,7 +4,7 @@ namespace RigoFunc.ApiCore.Services {
     /// <summary>
     /// Represents all the options you can user to configure the service.
     /// </summary>
-    public class SmsEmailOptions {
+    public class InvokeApiOptions {
         /// <summary>
         /// Gets or sets the send Sms API URL.
         /// </summary>
@@ -15,5 +15,10 @@ namespace RigoFunc.ApiCore.Services {
         /// </summary>
         /// <value>The send email API URL.</value>
         public string EmailApiUrl { get; set; }
+        /// <summary>
+        /// Gets or sets the App push API URL.
+        /// </summary>
+        /// <value>The App push API URL.</value>
+        public string AppPushApiUrl { get; set; }
     }
 }
