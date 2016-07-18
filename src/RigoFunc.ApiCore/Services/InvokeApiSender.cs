@@ -116,7 +116,7 @@ namespace RigoFunc.ApiCore.Services {
         /// <param name="phoneNumber">The phone number.</param>
         /// <param name="message">The message.</param>
         /// <returns>A <see cref="Task{TResult}"/> represents the send operation.</returns>
-        public async virtual Task<SendSmsResult> SendSmsAsnyc(string phoneNumber, string message) {
+        public async virtual Task<SendSmsResult> SendSmsAsync(string phoneNumber, string message) {
             using (var http = new HttpClient()) {
                 var value = new { PhoneNumber = phoneNumber, Message = message };
                 var response = await http.PostAsJsonAsync(_options.SmsApiUrl, value);

@@ -14,7 +14,7 @@ namespace RigoFunc.ApiCore.Services {
         /// <param name="phoneNumber">The phone number.</param>
         /// <param name="message">The message.</param>
         /// <returns>A <see cref="Task{TResult}"/> represents the send operation.</returns>
-        Task<SendSmsResult> SendSmsAsnyc(string phoneNumber, string message);
+        Task<SendSmsResult> SendSmsAsync(string phoneNumber, string message);
         /// <summary>
         /// Sends the Sms message asynchronous.
         /// </summary>
