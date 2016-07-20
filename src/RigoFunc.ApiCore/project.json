@@ -1,6 +1,6 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "Api core infrastructure library can be used for Asp.Net Core Api.",
+  "description": "Core infrastructures for Asp.Net Core, such as Exception handling, Result transformation and OAuth and so on.",
   "authors": [ "RigoFunc" ],
   "packOptions": {
     "projectUrl": "https://github.com/xyting/RigoFunc.ApiCore",
@@ -9,7 +9,7 @@
       "type": "git",
       "url": "https://github.com/xyting/RigoFunc.ApiCore.git"
     },
-    "tags": [ "Filter", "Api", "Core", "webapi", "aspnet", "aspnetcore" ]
+    "tags": [ "webapi", "aspnet", "aspnetcore" ]
   },
   "buildOptions": {
     "optimize": true,
