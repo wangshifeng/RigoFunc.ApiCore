@@ -1,6 +1,6 @@
 # RigoFunc.ApiCore
 
-This repo contains some Asp.Net Core API infrastructures, such as Exception handling, Result transformation and so on.
+This repo contains core infrastructures for Asp.Net Core, such as Exception handling, Result transformation and OAuth and so on.
 
 [![Join the chat at https://gitter.im/xyting/RigoFunc.ApiCore](https://badges.gitter.im/xyting/RigoFunc.ApiCore.svg)](https://gitter.im/xyting/RigoFunc.ApiCore?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
