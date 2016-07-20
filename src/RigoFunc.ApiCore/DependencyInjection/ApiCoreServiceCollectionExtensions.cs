@@ -27,6 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection {
 
             builder.AddJsonFormatters(options => {
                 options.ContractResolver = new DefaultContractResolver();
+                options.DateFormatString = "yyyy-MM-dd hh:mm:ss";
             });
 
             return builder;
@@ -54,6 +55,7 @@ namespace Microsoft.Extensions.DependencyInjection {
 
             builder.AddJsonFormatters(options => {
                 options.ContractResolver = new DefaultContractResolver();
+                options.DateFormatString = "yyyy-MM-dd hh:mm:ss";
             });
 
             builder.AddAuthorization();
