@@ -12,6 +12,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RigoFunc.ApiCore", "src\RigoFunc.ApiCore\RigoFunc.ApiCore.xproj", "{8A257046-9720-4C01-B2B3-08922B364155}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{AC211551-E787-4EF7-95C4-484DC4F38FFE}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Host", "src\Host\Host.xproj", "{874FEF33-48AD-45CD-A7EF-4B6CE65C1851}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RigoFunc.ApiCore.IntegrationTest", "test\RigoFunc.ApiCore.IntegrationTest\RigoFunc.ApiCore.IntegrationTest.xproj", "{79CB8912-7BE6-43D2-B872-6F75092BFD68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,11 +28,21 @@ Global
 		{8A257046-9720-4C01-B2B3-08922B364155}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A257046-9720-4C01-B2B3-08922B364155}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A257046-9720-4C01-B2B3-08922B364155}.Release|Any CPU.Build.0 = Release|Any CPU
+		{874FEF33-48AD-45CD-A7EF-4B6CE65C1851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{874FEF33-48AD-45CD-A7EF-4B6CE65C1851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{874FEF33-48AD-45CD-A7EF-4B6CE65C1851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{874FEF33-48AD-45CD-A7EF-4B6CE65C1851}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79CB8912-7BE6-43D2-B872-6F75092BFD68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79CB8912-7BE6-43D2-B872-6F75092BFD68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79CB8912-7BE6-43D2-B872-6F75092BFD68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79CB8912-7BE6-43D2-B872-6F75092BFD68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8A257046-9720-4C01-B2B3-08922B364155} = {F9A45521-BAE8-49D4-933E-AF831BE26A43}
+		{874FEF33-48AD-45CD-A7EF-4B6CE65C1851} = {F9A45521-BAE8-49D4-933E-AF831BE26A43}
+		{79CB8912-7BE6-43D2-B872-6F75092BFD68} = {AC211551-E787-4EF7-95C4-484DC4F38FFE}
 	EndGlobalSection
 EndGlobal
