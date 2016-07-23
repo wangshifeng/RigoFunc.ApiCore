@@ -1,7 +1,5 @@
 ﻿// Copyright (c) RigoFunc (xuyingting). All rights reserved.
 
-using Newtonsoft.Json.Linq;
-
 namespace RigoFunc.ApiCore.Internal {
     internal class ApiResult {
         public int Code { get; set; }
