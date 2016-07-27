@@ -23,8 +23,8 @@ namespace Microsoft.Extensions.DependencyInjection {
                 throw new ArgumentNullException(nameof(services));
             }
 
-            services.TryAddTransient<IApiResultHandler, DefaultApiResultHandler>();
-            services.TryAddTransient<IApiExceptionHandler, DefaultApiExceptionHandler>();
+            services.TryAddScoped<IApiResultHandler, DefaultApiResultHandler>();
+            services.TryAddScoped<IApiExceptionHandler, DefaultApiExceptionHandler>();
 
             var builder = services.AddMvcCore().AddMvcOptions(options => {
                 options.Filters.Add(typeof(ApiResultFilterAttribute));

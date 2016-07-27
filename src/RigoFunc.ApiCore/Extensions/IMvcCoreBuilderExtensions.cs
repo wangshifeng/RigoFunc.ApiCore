@@ -17,7 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection {
         /// </returns>
         public static IMvcCoreBuilder AddApiResultHandler<THandler>(this IMvcCoreBuilder builder) 
             where THandler : class, IApiResultHandler {
-            builder.Services.AddTransient<IApiResultHandler, THandler>();
+            builder.Services.AddScoped<IApiResultHandler, THandler>();
 
             return builder;
         }
@@ -34,7 +34,7 @@ namespace Microsoft.Extensions.DependencyInjection {
         /// </returns>
         public static IMvcCoreBuilder AddApiExceptionHandler<THandler>(this IMvcCoreBuilder builder)
             where THandler : class, IApiExceptionHandler {
-            builder.Services.AddTransient<IApiExceptionHandler, THandler>();
+            builder.Services.AddScoped<IApiExceptionHandler, THandler>();
 
             return builder;
         }
