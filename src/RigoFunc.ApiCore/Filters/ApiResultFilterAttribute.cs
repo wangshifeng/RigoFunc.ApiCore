@@ -10,50 +10,33 @@ namespace RigoFunc.ApiCore.Filters {
     /// Provides Api result transform feature base http request header.
     /// </summary>
     public class ApiResultFilterAttribute : ResultFilterAttribute {
+        private readonly IApiResultHandler _resultHandler;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApiResultFilterAttribute" /> class.
+        /// </summary>
+        /// <param name="resultHandler">The result handler.</param>
+        public ApiResultFilterAttribute(IApiResultHandler resultHandler) {
+            _resultHandler = resultHandler;
+        }
+
         /// <summary>
         /// Called when [result executing].
         /// </summary>
         /// <param name="context">The context.</param>
         /// <inheritdoc />
         public sealed override void OnResultExecuting(ResultExecutingContext context) {
-            string device = context.HttpContext.Request.Headers["Device"];
+            string device = context.HttpContext.Request.Headers["device"];
             if (!string.IsNullOrEmpty(device)) {
                 if (device.Equals("ios", StringComparison.OrdinalIgnoreCase)) {
-                    OnResultExecutingForIOS(context);
+                    _resultHandler.OnResultExecutingForIOS(context);
                 }
                 else if (device.Equals("android", StringComparison.OrdinalIgnoreCase)) {
-                    OnResultExecutingForAndroid(context);
+                    _resultHandler.OnResultExecutingForAndroid(context);
                 }
             }
 
             base.OnResultExecuting(context);
-        }
-
-        /// <summary>
-        /// Called when [result executing] for Android system.
-        /// </summary>
-        /// <param name="context"></param>
-        protected virtual void OnResultExecutingForAndroid(ResultExecutingContext context) {
-            // special logic for Android
-            if (context.Result is ObjectResult) {
-                var objectResult = context.Result as ObjectResult;
-                if (objectResult.Value == null) {
-                    context.Result = new ObjectResult(ApiResult.NotFound());
-                }
-                else {
-                    var apiResult = Activator.CreateInstance(
-                        typeof(ApiResult<>).MakeGenericType(objectResult.DeclaredType), objectResult.Value);
-                    context.Result = new ObjectResult(apiResult);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Called when [result executing] for IOS system.
-        /// </summary>
-        /// <param name="context"></param>
-        protected virtual void OnResultExecutingForIOS(ResultExecutingContext context) {
-            // special logic for IOS
         }
     }
 }

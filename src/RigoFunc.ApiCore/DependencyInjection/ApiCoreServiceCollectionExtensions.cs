@@ -1,7 +1,10 @@
 ﻿using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Newtonsoft.Json.Serialization;
+using RigoFunc.ApiCore;
+using RigoFunc.ApiCore.Default;
 using RigoFunc.ApiCore.Filters;
 using RigoFunc.OAuth;
 
@@ -20,9 +23,12 @@ namespace Microsoft.Extensions.DependencyInjection {
                 throw new ArgumentNullException(nameof(services));
             }
 
+            services.TryAddTransient<IApiResultHandler, DefaultApiResultHandler>();
+            services.TryAddTransient<IApiExceptionHandler, DefaultApiExceptionHandler>();
+
             var builder = services.AddMvcCore().AddMvcOptions(options => {
-                options.Filters.Add(new ApiResultFilterAttribute());
-                options.Filters.Add(new ApiExceptionFilterAttribute());
+                options.Filters.Add(typeof(ApiResultFilterAttribute));
+                options.Filters.Add(typeof(ApiExceptionFilterAttribute));
             });
 
             builder.AddJsonFormatters(options => {
@@ -40,25 +46,14 @@ namespace Microsoft.Extensions.DependencyInjection {
         /// <param name="setupAction">An <see cref="Action{OAuthOptions}"/> to configure the provided <see cref="OAuthOptions"/>.</param>
         /// <returns>An <see cref="IMvcCoreBuilder"/> that can be used to further configure the MVC services.</returns>
         public static IMvcCoreBuilder AddCoreWithOAuth(this IServiceCollection services, Action<OAuthOptions> setupAction) {
-            if (services == null) {
-                throw new ArgumentNullException(nameof(services));
-            }
+            var builder = services.AddCore();
 
-            var builder = services.AddMvcCore().AddMvcOptions(options => {
+            builder.AddMvcOptions(options => {
                 var policy = new AuthorizationPolicyBuilder()
-                     .RequireAuthenticatedUser()
-                     .Build();
+                    .RequireAuthenticatedUser()
+                    .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
-                options.Filters.Add(new ApiResultFilterAttribute());
-                options.Filters.Add(new ApiExceptionFilterAttribute());
-            });
-
-            builder.AddJsonFormatters(options => {
-                options.ContractResolver = new DefaultContractResolver();
-                options.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-            });
-
-            builder.AddAuthorization();
+            }).AddAuthorization();
 
             if (setupAction != null) {
                 services.Configure(setupAction);

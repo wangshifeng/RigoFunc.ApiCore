@@ -9,17 +9,22 @@
       "type": "git",
       "url": "https://github.com/xyting/RigoFunc.ApiCore.git"
     },
-    "tags": [ "webapi", "aspnet", "aspnetcore" ]
+    "tags": [ "aspnetcore", "aspnet", "webapi" ]
   },
   "buildOptions": {
     "optimize": true,
-    "xmlDoc": true
+    "xmlDoc": true,
+    "warningsAsErrors": true,
+    "nowarn": [
+      "CS1591"
+    ]
   },
   "dependencies": {
     "NETStandard.Library": "1.6.0",
     "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
     "Microsoft.AspNetCore.Mvc.Formatters.Json": "1.0.0",
-    "RigoFunc.OAuth": "1.0.4"
+    "RigoFunc.OAuth": "1.0.4",
+    "Love.Net.Core": "1.0.0"
   },
 
   "frameworks": {
