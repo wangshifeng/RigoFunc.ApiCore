@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using RigoFunc.ApiCore.Internal;
+using Love.Net.Core;
 
 namespace RigoFunc.ApiCore.Default {
     /// <summary>
@@ -27,11 +28,13 @@ namespace RigoFunc.ApiCore.Default {
         /// had handled the exception or not.
         /// </remarks>
         public virtual void HandleExceptionForAndroid(ExceptionContext context) {
-            var apiResult = ApiResult.BadRequest(context.Exception.Message);
-            if (_env.IsDevelopment()) {
+            if(context.Exception is Exception<InvokeError>) {
+                var exception = context.Exception as Exception<InvokeError>;
+                context.Result = new ObjectResult(ApiResult.BadRequest(exception.Error, exception.Error.Message));
             }
-
-            context.Result = new JsonResult(apiResult);
+            else {
+                context.Result = new ObjectResult(ApiResult.BadRequest(context.Exception.Message));
+            }
 
             context.ExceptionHandled = true;
         }
@@ -48,14 +51,22 @@ namespace RigoFunc.ApiCore.Default {
             // Bad Request
             context.HttpContext.Response.StatusCode = 400;
 
-            var json = new {
-                // this is for backward compatibility
-                ErrorMessage = context.Exception.Message,
-                Error = context.Exception.Message
-            };
-
-            // Json result.
-            context.Result = new JsonResult(json);
+            // ErrorMessage property is for old version APP compatibility
+            if (context.Exception is Exception<InvokeError>) {
+                var exception = context.Exception as Exception<InvokeError>;
+                context.Result = new ObjectResult(new {
+                    Error = exception.Error,
+                    // comment out for compatibility
+                    ErrorMessage = exception.Error.Message,
+                });
+            }
+            else {
+                context.Result = new ObjectResult(new {
+                    Error = InvokeError.Caused(context.Exception.Message, "Exception"),
+                    // comment out for compatibility
+                    ErrorMessage = context.Exception.Message,
+                });
+            }
 
             context.ExceptionHandled = true;
         }
