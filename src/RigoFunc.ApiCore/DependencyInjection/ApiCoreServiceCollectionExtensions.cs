@@ -13,7 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection {
     /// </summary>
     public static class ApiCoreServiceCollectionExtensions {
         /// <summary>
-        /// Adds API core services to the specified <see cref="IServiceCollection" />.
+        /// Adds essential MVC services with API core feature to the specified <see cref="IServiceCollection" />.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection" /> to add services to.</param>
         /// <returns>An <see cref="IMvcCoreBuilder"/> that can be used to further configure the MVC services.</returns>
@@ -39,7 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection {
         }
 
         /// <summary>
-        /// Adds API core services with OAuth to the specified <see cref="IServiceCollection" />.
+        /// Adds essential MVC services with OAuth to the specified <see cref="IServiceCollection" />.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection" /> to add services to.</param>
         /// <returns>An <see cref="IMvcCoreBuilder"/> that can be used to further configure the MVC services.</returns>
