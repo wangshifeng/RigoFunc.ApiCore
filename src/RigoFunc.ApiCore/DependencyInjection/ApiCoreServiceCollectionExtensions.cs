@@ -6,7 +6,6 @@ using Newtonsoft.Json.Serialization;
 using RigoFunc.ApiCore;
 using RigoFunc.ApiCore.Default;
 using RigoFunc.ApiCore.Filters;
-using RigoFunc.OAuth;
 
 namespace Microsoft.Extensions.DependencyInjection {
     /// <summary>
@@ -43,9 +42,8 @@ namespace Microsoft.Extensions.DependencyInjection {
         /// Adds API core services with OAuth to the specified <see cref="IServiceCollection" />.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection" /> to add services to.</param>
-        /// <param name="setupAction">An <see cref="Action{OAuthOptions}"/> to configure the provided <see cref="OAuthOptions"/>.</param>
         /// <returns>An <see cref="IMvcCoreBuilder"/> that can be used to further configure the MVC services.</returns>
-        public static IMvcCoreBuilder AddCoreWithOAuth(this IServiceCollection services, Action<OAuthOptions> setupAction) {
+        public static IMvcCoreBuilder AddCoreWithOAuth(this IServiceCollection services) {
             var builder = services.AddCore();
 
             builder.AddMvcOptions(options => {
@@ -54,10 +52,6 @@ namespace Microsoft.Extensions.DependencyInjection {
                     .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
             }).AddAuthorization();
-
-            if (setupAction != null) {
-                services.Configure(setupAction);
-            }
 
             return builder;
         }

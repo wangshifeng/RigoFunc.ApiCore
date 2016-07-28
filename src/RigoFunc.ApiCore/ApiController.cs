@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using RigoFunc.OAuth;
 
 namespace RigoFunc.ApiCore {
     /// <summary>
@@ -79,9 +78,9 @@ namespace RigoFunc.ApiCore {
         public ClaimsPrincipal User => HttpContext?.User;
 
         /// <summary>
-        /// Gets the <see cref="OAuthUser"/>.
+        /// Gets the <see cref="Love.Net.Core.User"/>.
         /// </summary>
-        public OAuthUser OAuthUser => OAuthUser.FromUser(User);
+        public Love.Net.Core.User OAuthUser => Love.Net.Core.User.FromUser(User);
 
         /// <summary>
         /// Gets the access token.
