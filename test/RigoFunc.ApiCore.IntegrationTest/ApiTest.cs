@@ -47,5 +47,41 @@ namespace RigoFunc.ApiCore.IntegrationTest {
             Assert.NotNull(apiResult);
             Assert.IsType<DateTime>(apiResult.Data);
         }
+
+        [Fact]
+        public async Task Api_Void_Return_Android_Request_Test() {
+            _client.DefaultRequestHeaders.Add("Device", "android");
+            var response = await _client.PostAsJsonAsync($"/api/values/", "xUnit Test");
+            response.EnsureSuccessStatusCode();
+
+            var apiResult = await response.Content.ReadAsAsync<ApiResult>();
+
+            Assert.NotNull(apiResult);
+            Assert.Equal(0, apiResult.Code);
+        }
+
+        [Fact]
+        public async Task Api_NULL_Return_Android_Request_Test() {
+            _client.DefaultRequestHeaders.Add("Device", "android");
+            var response = await _client.PostAsJsonAsync($"/api/values/null", "xUnit Test");
+            response.EnsureSuccessStatusCode();
+
+            var apiResult = await response.Content.ReadAsAsync<ApiResult>();
+
+            Assert.NotNull(apiResult);
+            Assert.Equal(404, apiResult.Code);
+        }
+
+        [Fact]
+        public async Task Api_Task_Return_Android_Request_Test() {
+            _client.DefaultRequestHeaders.Add("Device", "android");
+            var response = await _client.PostAsJsonAsync($"/api/values/taskvoid", "xUnit Test");
+            response.EnsureSuccessStatusCode();
+
+            var apiResult = await response.Content.ReadAsAsync<ApiResult>();
+
+            Assert.NotNull(apiResult);
+            Assert.Equal(0, apiResult.Code);
+        }
     }
 }

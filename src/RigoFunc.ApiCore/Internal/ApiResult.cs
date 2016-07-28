@@ -18,6 +18,20 @@ namespace RigoFunc.ApiCore.Internal {
     }
 
     internal class ApiResult<T> : ApiResult {
+        public static ApiResult<bool> True() {
+            return new ApiResult<bool> {
+                Code = 0,
+                Data = true
+            };
+        }
+
+        public static ApiResult<T> BadRequest(T data, string message) {
+            return new ApiResult<T> {
+                Data = data,
+                Message = message
+            };
+        }
+
         public ApiResult() {
 
         }

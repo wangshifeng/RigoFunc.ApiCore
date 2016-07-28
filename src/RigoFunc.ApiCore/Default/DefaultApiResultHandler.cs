@@ -24,6 +24,9 @@ namespace RigoFunc.ApiCore.Default {
                     context.Result = new ObjectResult(apiResult);
                 }
             }
+            else if(context.Result is EmptyResult) {
+                context.Result = new ObjectResult(ApiResult<bool>.True());
+            }
         }
 
         /// <summary>

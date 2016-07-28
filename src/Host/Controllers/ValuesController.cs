@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Love.Net.Core;
 using Microsoft.AspNetCore.Mvc;
 using RigoFunc.ApiCore;
 
@@ -23,6 +24,16 @@ namespace Host.Controllers {
         // POST api/values
         [HttpPost]
         public void Post([FromBody]string value) {
+        }
+
+        [HttpPost("[action]")]
+        public User NULL([FromBody]string value) {
+            return null;
+        }
+
+        [HttpPost("[action]")]
+        public async Task TaskVoid([FromBody]string value) {
+            await Task.Delay(0);
         }
 
         // PUT api/values/5
