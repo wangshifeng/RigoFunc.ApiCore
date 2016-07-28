@@ -6,13 +6,11 @@ This repo contains core infrastructures for Asp.Net Core, such as Exception hand
 
 # How to use
 
-## Install *RigoFunc.ApiCore* package
-
 To install RigoFunc.ApiCore, run the following command in the Package Manager Console
 
 `PM> Install-Package RigoFunc.ApiCore`
 
-## Configure services
+## Startup.cs
 
 ```C# 
 public void ConfigureServices(IServiceCollection services) {
@@ -20,8 +18,6 @@ public void ConfigureServices(IServiceCollection services) {
     services.AddCoreWithOAuth();
 }
 ```
-
-## Configure middleware
 
 ```C#
 public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory) {
