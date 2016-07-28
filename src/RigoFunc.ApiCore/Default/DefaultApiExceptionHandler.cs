@@ -26,7 +26,7 @@ namespace RigoFunc.ApiCore.Default {
         /// The implementation MUST set the ExceptionHandled property of <see cref="ExceptionContext"/> to indicate whether
         /// had handled the exception or not.
         /// </remarks>
-        public void HandleExceptionForAndroid(ExceptionContext context) {
+        public virtual void HandleExceptionForAndroid(ExceptionContext context) {
             var apiResult = ApiResult.BadRequest(context.Exception.Message);
             if (_env.IsDevelopment()) {
             }
@@ -44,7 +44,7 @@ namespace RigoFunc.ApiCore.Default {
         /// The implementation MUST set the ExceptionHandled property of <see cref="ExceptionContext"/> to indicate whether
         /// had handled the exception or not.
         /// </remarks>
-        public void HandleExceptionForIOS(ExceptionContext context) {
+        public virtual void HandleExceptionForIOS(ExceptionContext context) {
             // Bad Request
             context.HttpContext.Response.StatusCode = 400;
 

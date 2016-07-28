@@ -12,7 +12,7 @@ namespace RigoFunc.ApiCore.Default {
         /// Called when [result executing] for Android system.
         /// </summary>
         /// <param name="context">The instance of <see cref="ResourceExecutedContext" />.</param>
-        public void OnResultExecutingForAndroid(ResultExecutingContext context) {
+        public virtual void OnResultExecutingForAndroid(ResultExecutingContext context) {
             if (context.Result is ObjectResult) {
                 var objectResult = context.Result as ObjectResult;
                 if (objectResult.Value == null) {
@@ -30,7 +30,7 @@ namespace RigoFunc.ApiCore.Default {
         /// Called when [result executing] for IOS system.
         /// </summary>
         /// <param name="context">The instance of <see cref="ResourceExecutedContext" />.</param>
-        public void OnResultExecutingForIOS(ResultExecutingContext context) {
+        public virtual void OnResultExecutingForIOS(ResultExecutingContext context) {
             // do nothing here.
         }
     }
