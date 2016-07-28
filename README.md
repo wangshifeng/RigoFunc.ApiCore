@@ -17,11 +17,7 @@ To install RigoFunc.ApiCore, run the following command in the Package Manager Co
 ```C# 
 public void ConfigureServices(IServiceCollection services) {
     // user Api Core
-    services.AddCoreWithOAuth(options => {
-        options.HostUrl = Configuration["OAuth:OAuthUrl"];
-        options.ScopeName = Configuration["OAuth:ScopeName"];
-        options.ScopeSecret = Configuration["OAuth:ScopeSecret"];
-    });
+    services.AddCoreWithOAuth();
 }
 ```
 
@@ -29,7 +25,14 @@ public void ConfigureServices(IServiceCollection services) {
 
 ```C#
 public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory) {
-    app.UseCoreWithOAuth();
+    loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+    loggerFactory.AddDebug();
+
+    app.UseMvcWithOAuth(new OAuthOptions {
+        HostUrl = Configuration["oauth:hostUrl"],
+        ScopeName = Configuration["oauth:scopeName"],
+        ScopeSecret = Configuration["oauth:scopeSecret"]
+    });
 }
 ```
 
