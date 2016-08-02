@@ -30,9 +30,6 @@ namespace RigoFunc.ApiCore.Filters {
         /// <param name="context">The context.</param>
         public sealed override void OnException(ExceptionContext context) {
             try {
-                // Bad Request
-                context.HttpContext.Response.StatusCode = 400;
-
                 // log error
                 _logger.LogError(context.Exception.ToString());
 
@@ -47,6 +44,9 @@ namespace RigoFunc.ApiCore.Filters {
                 }
 
                 if (!context.ExceptionHandled) {
+                    // Bad Request
+                    context.HttpContext.Response.StatusCode = 400;
+
                     // ErrorMessage property is for old version APP compatibility
                     if (context.Exception is Exception<InvokeError>) {
                         var exception = context.Exception as Exception<InvokeError>;
