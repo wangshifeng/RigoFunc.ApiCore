@@ -24,7 +24,7 @@
     "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
     "Microsoft.AspNetCore.Mvc.Formatters.Json": "1.0.0",
     "IdentityServer4.AccessTokenValidation": "1.0.1-beta2",
-    "Love.Net.Core": "1.0.2"
+    "Love.Net.Core": "1.0.3"
   },
 
   "frameworks": {
