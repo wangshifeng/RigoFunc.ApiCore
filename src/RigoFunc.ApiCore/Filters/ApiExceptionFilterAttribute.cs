@@ -1,6 +1,7 @@
 ﻿// Copyright (c) RigoFunc (xuyingting). All rights reserved.
 
 using System;
+using Love.Net.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
@@ -29,6 +30,9 @@ namespace RigoFunc.ApiCore.Filters {
         /// <param name="context">The context.</param>
         public sealed override void OnException(ExceptionContext context) {
             try {
+                // Bad Request
+                context.HttpContext.Response.StatusCode = 400;
+
                 // log error
                 _logger.LogError(context.Exception.ToString());
 
@@ -43,14 +47,22 @@ namespace RigoFunc.ApiCore.Filters {
                 }
 
                 if (!context.ExceptionHandled) {
-                    var json = new {
-                        // this is for backward compatibility
-                        ErrorMessage = context.Exception.Message,
-                        Error = context.Exception.Message
-                    };
-
-                    // Json result.
-                    context.Result = new JsonResult(json);
+                    // ErrorMessage property is for old version APP compatibility
+                    if (context.Exception is Exception<InvokeError>) {
+                        var exception = context.Exception as Exception<InvokeError>;
+                        context.Result = new ObjectResult(new {
+                            Error = exception.Error,
+                            // comment out for compatibility
+                            ErrorMessage = exception.Error.Message,
+                        });
+                    }
+                    else {
+                        context.Result = new ObjectResult(new {
+                            Error = InvokeError.Caused(context.Exception.Message, "Exception"),
+                            // comment out for compatibility
+                            ErrorMessage = context.Exception.Message,
+                        });
+                    }
 
                     context.ExceptionHandled = true;
                 }
