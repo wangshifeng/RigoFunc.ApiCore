@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.1.8-*",
+  "version": "1.1.9-*",
   "description": "Core infrastructures for Asp.Net Core, such as Exception handling, Result transformation and OAuth and so on.",
   "authors": [ "RigoFunc" ],
   "packOptions": {
