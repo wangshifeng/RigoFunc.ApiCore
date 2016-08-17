@@ -1,10 +1,11 @@
 ﻿// Copyright (c) RigoFunc (xuyingting). All rights reserved.
 
 using System;
-using Love.Net.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Love.Net.Core;
 
 namespace RigoFunc.ApiCore.Filters {
     /// <summary>
@@ -31,7 +32,13 @@ namespace RigoFunc.ApiCore.Filters {
         public sealed override void OnException(ExceptionContext context) {
             try {
                 // log error
-                _logger.LogError(context.Exception.ToString());
+                if (context.Exception is Exception<InvokeError>) {
+                    var exception = context.Exception as Exception<InvokeError>;
+                    _logger.LogError(JsonConvert.SerializeObject(exception.Error));
+                }
+                else {
+                    _logger.LogError(context.Exception.ToString());
+                }
 
                 string device = context.HttpContext.Request.Headers["device"];
                 if (!string.IsNullOrEmpty(device)) {

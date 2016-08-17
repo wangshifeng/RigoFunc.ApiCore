@@ -1,5 +1,7 @@
 ﻿// Copyright (c) RigoFunc (xuyingting). All rights reserved.
 
+using Love.Net.Core;
+
 namespace RigoFunc.ApiCore.Internal {
     internal class ApiResult {
         public int Code { get; set; }
@@ -26,6 +28,12 @@ namespace RigoFunc.ApiCore.Internal {
             Data = data,
             Message = message
         };
+
+        public static ApiResult BadRequest(InvokeError error) => new ApiInvokeError {
+            Code = 400,
+            Error = error,
+            Message = error.Message
+        };
     }
 
     internal class ApiResult<T> : ApiResult {
@@ -38,5 +46,17 @@ namespace RigoFunc.ApiCore.Internal {
         }
 
         public T Data { get; set; }
+    }
+
+    internal class ApiInvokeError : ApiResult {
+        public ApiInvokeError() {
+
+        }
+
+        public ApiInvokeError(InvokeError error) {
+            Error = error;
+        }
+
+        public InvokeError Error { get; set; }
     }
 }

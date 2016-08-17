@@ -30,7 +30,7 @@ namespace RigoFunc.ApiCore.Default {
         public virtual void HandleExceptionForAndroid(ExceptionContext context) {
             if (context.Exception is Exception<InvokeError>) {
                 var exception = context.Exception as Exception<InvokeError>;
-                context.Result = new ObjectResult(ApiResult.BadRequest(exception.Error, exception.Error.Message));
+                context.Result = new ObjectResult(ApiResult.BadRequest(exception.Error));
             }
             else {
                 context.Result = new ObjectResult(ApiResult.BadRequest(context.Exception.Message));
