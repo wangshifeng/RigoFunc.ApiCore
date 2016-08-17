@@ -1,9 +1,7 @@
 ﻿// Copyright (c) RigoFunc (xuyingting). All rights reserved.
 
 using System;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using RigoFunc.ApiCore.Internal;
 
 namespace RigoFunc.ApiCore.Filters {
     /// <summary>
